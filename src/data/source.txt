@@ -1,0 +1,13 @@
+Recipe.csv: 
+https://github.com/xivapi/ffxiv-datamining/tree/master/csv/Recipe.csv
+
+RecipeLevelTable.csv:
+https://github.com/xivapi/ffxiv-datamining/tree/master/csv/RecipeLevelTable.csv
+
+CraftLevelDifference.csv:
+https://github.com/xivapi/ffxiv-datamining/tree/master/csv/CraftLevelDifference.csv
+
+CrafterLevelTable.csv:
+https://nga.178.com/read.php?tid=18839082
+
+

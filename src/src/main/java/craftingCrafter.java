@@ -1,13 +1,70 @@
-public class craftingCrafter {
-    public int craftsmanship, control, craftingPoint, playerLevel;
-    public String job;
+import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.util.List;
+
+public class craftingCrafter {
+    private String job;
+    private int craftsmanship, control, craftingPoint, playerLevel;
+    private int crafterLevel;
+
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public int getCraftsmanship() {
+        return craftsmanship;
+    }
+
+    public void setCraftsmanship(int craftsmanship) {
+        this.craftsmanship = craftsmanship;
+    }
+
+    public int getControl() {
+        return control;
+    }
+
+    public void setControl(int control) {
+        this.control = control;
+    }
+
+    public int getCraftingPoint() {
+        return craftingPoint;
+    }
+
+    public void setCraftingPoint(int craftingPoint) {
+        this.craftingPoint = craftingPoint;
+    }
+
+    public int getPlayerLevel() {
+        return playerLevel;
+    }
+
+    public void setPlayerLevel(int playerLevel) {
+        this.playerLevel = playerLevel;
+    }
+
+    public int getCrafterLevel() {
+        return crafterLevel;
+    }
+
+    public void setCrafterLevel(int crafterLevel) {
+        this.crafterLevel = crafterLevel;
+    }
 
     public craftingCrafter(){
         this.craftsmanship = 0;
         this.control = 0;
         this.craftingPoint = 0;
         this.playerLevel = 0;
+        this.crafterLevel = 0;
         this.job = "";
     }
     public craftingCrafter(int craftsmanship, int control, int craftingPoint, int playerLevel, String job){
@@ -15,15 +72,30 @@ public class craftingCrafter {
         this.control = control;
         this.craftingPoint = craftingPoint;
         this.playerLevel = playerLevel;
+        this.crafterLevel = calculateCrafterLevel();
         this.job = job;
     }
 
     /**
-     * Search the clv table and return corresponding clv given plv
+     * Search data/CrafterLevelTable.csv and return corresponding crafterLevel for given playerLevel
      * @return crafterLevel
      */
-    public int calculateCrafterLevel(){
-        int crafterLevel = 0;
-        return crafterLevel;
+    private int calculateCrafterLevel(){
+        try{
+            CsvToBeanBuilder<crafterLevelTableCsvBean> crafterLevelTableCsvBeanCsvToBeanBuilder =
+                    new CsvToBeanBuilder<crafterLevelTableCsvBean>(new InputStreamReader(new FileInputStream("data/CrafterLevelTable.csv")));
+            crafterLevelTableCsvBeanCsvToBeanBuilder.withType(crafterLevelTableCsvBean.class);
+            List<crafterLevelTableCsvBean> crafterLevelTableCsvBeans = crafterLevelTableCsvBeanCsvToBeanBuilder.withSkipLines(3).build().parse();
+            for (crafterLevelTableCsvBean cltb : crafterLevelTableCsvBeans){
+                if (cltb.playerLevel == this.playerLevel){
+                    System.out.println("Found target playerLevel in CrafterLevelTable.csv!");
+                    return cltb.crafterLevel;
+                }
+            }
+
+        } catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return -1;
     }
 }

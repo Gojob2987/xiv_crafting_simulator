@@ -1,8 +1,6 @@
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
-import sun.reflect.CallerSensitive;
 
-public class recipeBean {
+public class recipeCsvBean {
 
     // Item{Result}
     @CsvBindByPosition(position = 4)
@@ -13,8 +11,8 @@ public class recipeBean {
     public int recipeLevel;
 
     // DifficultyFactor
-    @CsvBindByPosition(position = 28)
-    public int difficultyFactor;
+    @CsvBindByPosition(position = 29)
+    public int progressFactor;
 
     // QualityFactor
     @CsvBindByPosition(position = 30)
@@ -27,7 +25,7 @@ public class recipeBean {
     public void printBean(){
         System.out.println("itemResultID " + itemResultID);
         System.out.println("recipeLevel " + recipeLevel);
-        System.out.println("difficultyFactor " + difficultyFactor);
+        System.out.println("progressFactor " + progressFactor);
         System.out.println("qualityFactor " + qualityFactor);
         System.out.println("durabilityFactor " + durabilityFactor);
     }
