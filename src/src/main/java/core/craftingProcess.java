@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 public class craftingProcess {
-    private static int steps;
-    private static int progressCurrent, qualityCurrent, durabilityCurrent;
-    private static int craftsmanshipCurrent, controlCurrent, cpCurrent;
+    private static int steps; // updated in each step
+    private static int progressCurrent, qualityCurrent, durabilityCurrent; // updated in each step
+    private static int craftsmanshipCurrent, controlCurrent, cpCurrent; // updated in each step
+    private static int craftsmanshipDefault, controlDefault;  // fixed, crafter
     private static int progressIncreaseDefault, qualityIncreaseDefault;
-    private static int progressEfficiency, qualityEfficiency;
-    private static int craftsmanshipDefault, controlDefault;
+    private static int progressEfficiency, qualityEfficiency; // might not be used
 
-    private static int suggestedCraftsmanship, suggestedControl;
-    private static int progressLimit, qualityLimit, durabilityLimit;
-    private static int craftsmanshipFactorFromLevelDifference, controlFactorFromLevelDifference;
-    private static HashMap<String, Integer> buffMap;
+    private static int suggestedCraftsmanship, suggestedControl; // fixed, recipe
+    private static int progressLimit, qualityLimit, durabilityLimit; // fixed, recipe
+    private static int craftsmanshipFactorFromLevelDifference, controlFactorFromLevelDifference; // calculated
+    private static HashMap<String, Integer> buffMap; // updated in each step
 
 
 
@@ -268,7 +268,8 @@ public class craftingProcess {
         System.out.println("qualityLimit: " + qualityLimit);
         System.out.println("cpCurrent: " + cpCurrent);
         System.out.println("durabilityLimit: " + durabilityLimit);
-        System.out.println("===== steps: " + steps);
+        System.out.println("steps: " + steps);
+        System.out.println("=====");
 
 
     }
@@ -284,6 +285,8 @@ public class craftingProcess {
         for (Map.Entry<String, Integer> buffEntry : buffMap.entrySet()) {
             System.out.println(buffEntry.getKey() + ": " + buffEntry.getValue());
         }
+        System.out.println("=====");
+
     }
 
 }

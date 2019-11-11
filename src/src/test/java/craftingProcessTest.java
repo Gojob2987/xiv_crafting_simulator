@@ -21,6 +21,10 @@ public class craftingProcessTest {
 
     }
 
+    /**
+     * https://xivapi.com/search?string=Lemon%20Curd
+     * Stat comes from my character in game
+     */
     @Test
     public void testValidConstructor2(){
         craftingCrafter crafter = new craftingCrafter(2403, 2392, 600, 80, "Culinarian");
