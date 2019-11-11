@@ -12,9 +12,19 @@ public class craftingProcessTest {
      * Lets test it out
       */
     @Test
-    public void testValidConstructor(){
+    public void testValidConstructor1(){
         craftingCrafter crafter = new craftingCrafter(2142, 2029, 600, 80, "Carpenter");
         craftingRecipe recipe = new craftingRecipe(27694);
+        craftingProcess process = new craftingProcess(crafter, recipe);
+        System.out.println(process.calculateProgressIncreaseDefault());
+        System.out.println(process.calculateQualityIncreaseDefault());
+
+    }
+
+    @Test
+    public void testValidConstructor2(){
+        craftingCrafter crafter = new craftingCrafter(2403, 2392, 600, 80, "Culinarian");
+        craftingRecipe recipe = new craftingRecipe(27890);
         craftingProcess process = new craftingProcess(crafter, recipe);
         System.out.println(process.calculateProgressIncreaseDefault());
         System.out.println(process.calculateQualityIncreaseDefault());

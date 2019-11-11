@@ -1,0 +1,5 @@
+1. So we want to make some "Lemon Curd Sachertorte" as a Cook with 2403 Craftsmanship and 2392 Control. The in game crafting UI looks like: crafting_ui_demo.png. Our crafter stats are displayed in: crafter_demo_1.png. Raw material list for this recipe is displayed in: recipe_demo_1.png
+
+2. We use the xivapi to find the item ID of "Lemon Curd Sachertorte", see api_search_demo.png
+
+3. We will input our crafter attribute when constructing a test crafter class, input the item ID of the item we want to craft in a test recipe class, and the simulator should calculate the increase in progress / quality at 100% efficiency correctly. See run_basic_stats_demo.png 

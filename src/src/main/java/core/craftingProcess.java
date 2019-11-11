@@ -29,32 +29,20 @@ public class craftingProcess {
         return craftsmanshipDefault;
     }
 
-    public void setCraftsmanshipDefault(int craftsmanshipDefault) {
-        this.craftsmanshipDefault = craftsmanshipDefault;
-    }
 
     public static int getControlDefault() {
         return controlDefault;
     }
 
-    public void setControlDefault(int controlDefault) {
-        this.controlDefault = controlDefault;
-    }
     public static int getSteps() {
         return steps;
     }
 
-    public static void setSteps(int steps) {
-        craftingProcess.steps = steps;
-    }
 
     public static int getProgressCurrent() {
         return progressCurrent;
     }
 
-    public static void setProgressCurrent(int progressCurrent) {
-        craftingProcess.progressCurrent = progressCurrent;
-    }
 
     public static int getQualityCurrent() {
         return qualityCurrent;
@@ -100,89 +88,37 @@ public class craftingProcess {
         return progressIncreaseDefault;
     }
 
-    public static void setProgressIncreaseDefault(int progressIncreaseDefault) {
-        craftingProcess.progressIncreaseDefault = progressIncreaseDefault;
-    }
 
     public static int getQualityIncreaseDefault() {
         return qualityIncreaseDefault;
     }
 
-    public static void setQualityIncreaseDefault(int qualityIncreaseDefault) {
-        craftingProcess.qualityIncreaseDefault = qualityIncreaseDefault;
-    }
 
-    public static int getProgressEfficiency() {
-        return progressEfficiency;
-    }
-
-    public static void setProgressEfficiency(int progressEfficiency) {
-        craftingProcess.progressEfficiency = progressEfficiency;
-    }
-
-    public static int getQualityEfficiency() {
-        return qualityEfficiency;
-    }
-
-    public static void setQualityEfficiency(int qualityEfficiency) {
-        craftingProcess.qualityEfficiency = qualityEfficiency;
-    }
 
     public int getSuggestedCraftsmanship() {
         return suggestedCraftsmanship;
     }
 
-    public void setSuggestedCraftsmanship(int suggestedCraftsmanship) {
-        this.suggestedCraftsmanship = suggestedCraftsmanship;
-    }
 
     public int getSuggestedControl() {
         return suggestedControl;
     }
 
-    public void setSuggestedControl(int suggestedControl) {
-        this.suggestedControl = suggestedControl;
-    }
 
     public static int getProgressLimit() {
         return progressLimit;
     }
 
-    public void setProgressLimit(int progressLimit) {
-        this.progressLimit = progressLimit;
-    }
 
     public static int getQualityLimit() {
         return qualityLimit;
     }
 
-    public void setQualityLimit(int qualityLimit) {
-        this.qualityLimit = qualityLimit;
-    }
 
     public int getDurabilityLimit() {
         return durabilityLimit;
     }
 
-    public void setDurabilityLimit(int durabilityLimit) {
-        this.durabilityLimit = durabilityLimit;
-    }
-
-    public int getCraftsmanshipFactorFromLevelDifference() {
-        return craftsmanshipFactorFromLevelDifference;
-    }
-
-    public void setCraftsmanshipFactorFromLevelDifference(int craftsmanshipFactorFromLevelDifference) {
-        this.craftsmanshipFactorFromLevelDifference = craftsmanshipFactorFromLevelDifference;
-    }
-
-    public int getControlFactorFromLevelDifference() {
-        return controlFactorFromLevelDifference;
-    }
-
-    public void setControlFactorFromLevelDifference(int controlFactorFromLevelDifference) {
-        this.controlFactorFromLevelDifference = controlFactorFromLevelDifference;
-    }
 
     public static HashMap<String, Integer> getBuffMap() {
         return buffMap;

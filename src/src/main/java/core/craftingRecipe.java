@@ -18,73 +18,16 @@ public class craftingRecipe {
         return progress;
     }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
-    }
 
     public int getQuality() {
         return quality;
     }
 
-    public void setQuality(int quality) {
-        this.quality = quality;
-    }
 
     public int getDurability() {
         return durability;
     }
 
-    public void setDurability(int durability) {
-        this.durability = durability;
-    }
-
-    public void setItemResultID(int itemResultID) {
-        this.itemResultID = itemResultID;
-    }
-
-    public void setClassJobLevel(int classJobLevel) {
-        this.classJobLevel = classJobLevel;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
-    }
-
-    public void setSuggestedCraftsmanship(int suggestedCraftsmanship) {
-        this.suggestedCraftsmanship = suggestedCraftsmanship;
-    }
-
-    public void setSuggestedControl(int suggestedControl) {
-        this.suggestedControl = suggestedControl;
-    }
-
-    public void setDefaultProgress(int defaultProgress) {
-        this.defaultProgress = defaultProgress;
-    }
-
-    public void setDefaultQuality(int defaultQuality) {
-        this.defaultQuality = defaultQuality;
-    }
-
-    public void setDefaultDurability(int defaultDurability) {
-        this.defaultDurability = defaultDurability;
-    }
-
-    public void setRecipeLevel(int recipeLevel) {
-        this.recipeLevel = recipeLevel;
-    }
-
-    public void setProgressFactor(int progressFactor) {
-        this.progressFactor = progressFactor;
-    }
-
-    public void setQualityFactor(int qualityFactor) {
-        this.qualityFactor = qualityFactor;
-    }
-
-    public void setDurabilityFactor(int durabilityFactor) {
-        this.durabilityFactor = durabilityFactor;
-    }
 
     public int getItemResultID() {
         return itemResultID;
@@ -106,33 +49,11 @@ public class craftingRecipe {
         return suggestedControl;
     }
 
-    public int getDefaultProgress() {
-        return defaultProgress;
-    }
-
-    public int getDefaultQuality() {
-        return defaultQuality;
-    }
-
-    public int getDefaultDurability() {
-        return defaultDurability;
-    }
 
     public int getRecipeLevel() {
         return recipeLevel;
     }
 
-    public int getProgressFactor() {
-        return progressFactor;
-    }
-
-    public int getQualityFactor() {
-        return qualityFactor;
-    }
-
-    public int getDurabilityFactor() {
-        return durabilityFactor;
-    }
 
     /**
      * Given id of the item you want to craft, retrieve related recipe information from data/Recipe.csv and data/RecipeLevelTable.csv

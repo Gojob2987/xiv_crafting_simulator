@@ -14,45 +14,21 @@ public class craftingCrafter {
     private int crafterLevel;
 
 
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
 
     public int getCraftsmanship() {
         return craftsmanship;
     }
 
-    public void setCraftsmanship(int craftsmanship) {
-        this.craftsmanship = craftsmanship;
-    }
 
     public int getControl() {
         return control;
     }
 
-    public void setControl(int control) {
-        this.control = control;
-    }
 
     public int getCraftingPoint() {
         return craftingPoint;
     }
 
-    public void setCraftingPoint(int craftingPoint) {
-        this.craftingPoint = craftingPoint;
-    }
-
-    public int getPlayerLevel() {
-        return playerLevel;
-    }
-
-    public void setPlayerLevel(int playerLevel) {
-        this.playerLevel = playerLevel;
-    }
 
     public int getCrafterLevel() {
         return crafterLevel;
