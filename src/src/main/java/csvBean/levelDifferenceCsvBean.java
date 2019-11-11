@@ -1,3 +1,5 @@
+package csvBean;
+
 import com.opencsv.bean.CsvBindByPosition;
 
 public class levelDifferenceCsvBean {

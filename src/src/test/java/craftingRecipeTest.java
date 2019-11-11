@@ -1,3 +1,4 @@
+import core.craftingRecipe;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

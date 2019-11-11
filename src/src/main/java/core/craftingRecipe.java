@@ -1,3 +1,7 @@
+package core;
+
+import csvBean.recipeCsvBean;
+import csvBean.recipeLevelTableCsvBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 
@@ -180,6 +184,7 @@ public class craftingRecipe {
             System.out.println(e.getMessage());
         }
 
+        /*
         System.out.println("recipeLevel: " + this.recipeLevel);
         System.out.println("progressFactor: " + this.progressFactor);
         System.out.println("progress: " + calculateDifficulty());
@@ -187,6 +192,8 @@ public class craftingRecipe {
         System.out.println("defaultQuality: " + this.defaultQuality);
         System.out.println("qualityFactor as %: " + (float)this.qualityFactor / 100);
         System.out.println("quality without flooring " + (float)this.qualityFactor / 100 * this.defaultQuality);
+
+         */
         this.progress = calculateDifficulty();
         this.quality = calculateQuality();
         this.durability = calculateDurability();

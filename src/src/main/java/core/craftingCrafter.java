@@ -1,3 +1,6 @@
+package core;
+
+import csvBean.crafterLevelTableCsvBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.FileInputStream;
