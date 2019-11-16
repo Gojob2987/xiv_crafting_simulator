@@ -103,19 +103,19 @@ public class craftingAction {
     }
 
     public int calculateControlBonus(){
-        int controlBonusFromIQ = 0;
-        int controlBonusFromIN = 0;
+        int controlBonusFromInnerQuiet = 0;
+        int controlBonusFromInnovation = 0;
 
         if (buffMap.containsKey("Inner Quiet")){
             int innerQuietStack = buffMap.get("Inner Quiet");
-            controlBonusFromIQ = (int) Math.floor((float)craftingProcess.getControlDefault() * (0.2 * (innerQuietStack - 1)));
+            controlBonusFromInnerQuiet = (int) Math.floor((float)craftingProcess.getControlDefault() * (0.2 * (innerQuietStack - 1)));
         }
 
         if (buffMap.containsKey("Innovation")){
-            controlBonusFromIN = (int) Math.floor((float)craftingProcess.getControlDefault() * 0.5);
+            controlBonusFromInnovation = (int) Math.floor((float)craftingProcess.getControlDefault() * 0.5);
         }
 
-        int controlBonusTotal = controlBonusFromIN + controlBonusFromIQ;
+        int controlBonusTotal = controlBonusFromInnovation + controlBonusFromInnerQuiet;
 
         if (controlBonusTotal > 3000){
             controlBonusTotal = 3000;

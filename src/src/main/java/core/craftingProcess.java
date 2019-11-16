@@ -1,5 +1,6 @@
 package core;
 
+import csvBean.craftActionsTableCsvBean;
 import csvBean.levelDifferenceCsvBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -11,27 +12,31 @@ import java.util.List;
 import java.util.Map;
 
 public class craftingProcess {
+    private static craftingCrafter crafter;
+    private static craftingRecipe recipe;
     private static int steps; // updated in each step
     private static int progressCurrent, qualityCurrent, durabilityCurrent; // updated in each step
     private static int craftsmanshipCurrent, controlCurrent, cpCurrent; // updated in each step
-    private static int craftsmanshipDefault, controlDefault;  // fixed, crafter
-    private static int progressIncreaseDefault, qualityIncreaseDefault;
-    private static int progressEfficiency, qualityEfficiency; // might not be used
+    private static int progressIncreaseDefault, qualityIncreaseDefault; // 100% efficiency, updated in each step
 
-    private static int suggestedCraftsmanship, suggestedControl; // fixed, recipe
-    private static int progressLimit, qualityLimit, durabilityLimit; // fixed, recipe
-    private static int craftsmanshipFactorFromLevelDifference, controlFactorFromLevelDifference; // calculated
+    private static int craftsmanshipFactorFromLevelDifference, controlFactorFromLevelDifference; // fixed values, calculate at initial
     private static HashMap<String, Integer> buffMap; // updated in each step
 
 
-
-    public int getCraftsmanshipDefault() {
-        return craftsmanshipDefault;
+    public static craftingCrafter getCrafter() {
+        return crafter;
     }
 
+    public static void setCrafter(craftingCrafter crafter) {
+        craftingProcess.crafter = crafter;
+    }
 
-    public static int getControlDefault() {
-        return controlDefault;
+    public static craftingRecipe getRecipe() {
+        return recipe;
+    }
+
+    public static void setRecipe(craftingRecipe recipe) {
+        craftingProcess.recipe = recipe;
     }
 
     public static int getSteps() {
@@ -93,33 +98,6 @@ public class craftingProcess {
         return qualityIncreaseDefault;
     }
 
-
-
-    public int getSuggestedCraftsmanship() {
-        return suggestedCraftsmanship;
-    }
-
-
-    public int getSuggestedControl() {
-        return suggestedControl;
-    }
-
-
-    public static int getProgressLimit() {
-        return progressLimit;
-    }
-
-
-    public static int getQualityLimit() {
-        return qualityLimit;
-    }
-
-
-    public int getDurabilityLimit() {
-        return durabilityLimit;
-    }
-
-
     public static HashMap<String, Integer> getBuffMap() {
         return buffMap;
     }
@@ -132,9 +110,10 @@ public class craftingProcess {
 
 
     public craftingProcess(craftingCrafter crafter, craftingRecipe recipe) {
-        int crafterLevel = crafter.getCrafterLevel();
-        int recipeLevel = recipe.getRecipeLevel();
-        int levelDifference = crafterLevel - recipeLevel;
+        this.crafter = crafter;
+        this.recipe = recipe;
+
+        int levelDifference = crafter.getCrafterLevel() - recipe.getRecipeLevel();
         initAttributeFactorsFromLevelDifference(levelDifference);
 
         initProcessAttributes(recipe);
@@ -152,15 +131,10 @@ public class craftingProcess {
      * @param recipe
      */
     private void initProcessAttributes(craftingRecipe recipe){
-        progressLimit = recipe.getProgress();
-        qualityLimit = recipe.getQuality();
-        durabilityLimit = recipe.getDurability();
         steps = 0;
         progressCurrent = 0;
         qualityCurrent = 0;
-        durabilityCurrent = durabilityLimit;
-        suggestedCraftsmanship = recipe.getSuggestedCraftsmanship();
-        suggestedControl = recipe.getSuggestedControl();
+        durabilityCurrent = recipe.getDurability();
     }
 
     /**
@@ -169,10 +143,9 @@ public class craftingProcess {
      * @param crafter
      */
     private void initCrafterAttributes(craftingCrafter crafter){
-        craftsmanshipCurrent = craftsmanshipDefault =crafter.getCraftsmanship();
-        controlCurrent = controlDefault = crafter.getControl();
+        craftsmanshipCurrent = crafter.getCraftsmanship();
+        controlCurrent = crafter.getControl();
         cpCurrent = crafter.getCraftingPoint();
-
     }
 
 
@@ -213,7 +186,7 @@ public class craftingProcess {
      */
     public int calculateProgressIncreaseDefault(){
         return (int)(Math.floor((float)craftsmanshipFactorFromLevelDifference / 100 * (0.21 * craftsmanshipCurrent + 2)
-                * (10000 + craftsmanshipCurrent) / (10000 + suggestedCraftsmanship)));
+                * (10000 + craftsmanshipCurrent) / (10000 + recipe.getSuggestedCraftsmanship())));
     }
 
     /**
@@ -224,20 +197,25 @@ public class craftingProcess {
      */
     public static int calculateQualityIncreaseDefault(){
         return (int)(Math.floor((float)controlFactorFromLevelDifference / 100 * (0.35 * controlCurrent + 35)
-        * (10000 + controlCurrent) / (10000 + suggestedControl)));
+        * (10000 + controlCurrent) / (10000 + recipe.getSuggestedControl())));
     }
 
 
-    public int calculateProgressIncreaseActual(){
+    public int calculateProgressIncreaseActual(int progressEfficiency){
         return (int)(Math.floor((float)progressEfficiency / 100 * progressIncreaseDefault));
     }
 
-    public int calculateQualityIncreaseActual(){
+
+
+
+    public int calculateQualityIncreaseActual(int qualityEfficiency){
         return (int)(Math.floor((float)qualityEfficiency / 100 * qualityIncreaseDefault));
     }
 
+
+
     public void stepNext(){
-        if (progressCurrent >= progressLimit){
+        if (progressCurrent >= recipe.getProgress()){
             System.out.println("Craft finished! Progress limit is reached!");
         }
         else if (durabilityCurrent <= 0){
@@ -257,17 +235,89 @@ public class craftingProcess {
     public void handleManipulation(){
         if (buffMap.containsKey("Manipulation")){
             durabilityCurrent += 5;
-            if (durabilityCurrent > durabilityLimit){
-                durabilityCurrent = durabilityLimit;
+            if (durabilityCurrent > recipe.getDurability()){
+                durabilityCurrent = recipe.getDurability();
             }
         }
     }
 
+    public int handleWasteNot(int costDurability){
+        if (buffMap.containsKey("Waste Not") || buffMap.containsKey("Waste Not II")){
+            return costDurability / 2;
+        }
+        else{
+            return costDurability;
+        }
+    }
+
+    public int handleGreatStrides(int qualityEfficiency){
+        if (buffMap.containsKey("Great Strides")){
+            buffMap.remove("Great Strides");
+            return qualityEfficiency + 100;
+        }
+        else{
+            return qualityEfficiency;
+        }
+    }
+
+    public int handleInnovation(int qualityEfficiency){
+        if (buffMap.containsKey("Innovation")){
+            return qualityEfficiency + 20;
+        }
+        else{
+            return qualityEfficiency;
+        }
+    }
+
+    public int handleNameOfTheElements(int progressEfficiency){
+        if (buffMap.containsKey("Name of the Elements")){
+            return 300 - (int)(Math.floor((float) 100 * progressCurrent / recipe.getProgress())) * 2;
+        }
+        else{
+            return progressEfficiency;
+        }
+    }
+
+
+    public craftActionsTableCsvBean getCraftActionBean(String actionName){
+        try {
+            CsvToBeanBuilder<craftActionsTableCsvBean> craftActionsTableCsvBeanCsvToBeanBuilder =
+                    new CsvToBeanBuilder(new InputStreamReader(new FileInputStream("data/CraftActionsTable.csv")));
+            craftActionsTableCsvBeanCsvToBeanBuilder.withType(craftActionsTableCsvBean.class);
+            List<craftActionsTableCsvBean> craftActionsTableCsvBeans= craftActionsTableCsvBeanCsvToBeanBuilder.withSkipLines(3).build().parse();
+            for (craftActionsTableCsvBean ab : craftActionsTableCsvBeans){
+                if (ab.name == actionName){
+                    System.out.println("Found target craft action in CraftActionsTable.csv!");
+                    return ab;
+                }
+            }
+        } catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+
+
+    public void doAction(String actionName){
+        craftActionsTableCsvBean actionBean = getCraftActionBean(actionName);
+        if (actionBean == null){return;}
+        
+
+    }
+
+
+
+
+
+
+
     public void printProcessInitial(){
-        System.out.println("progressLimit: " + progressLimit);
-        System.out.println("qualityLimit: " + qualityLimit);
+        System.out.println("progressLimit: " + recipe.getProgress());
+        System.out.println("qualityLimit: " + recipe.getQuality());
         System.out.println("cpCurrent: " + cpCurrent);
-        System.out.println("durabilityLimit: " + durabilityLimit);
+        System.out.println("durabilityLimit: " + recipe.getDurability());
         System.out.println("steps: " + steps);
         System.out.println("=====");
 
