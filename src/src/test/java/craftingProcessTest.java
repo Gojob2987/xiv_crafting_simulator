@@ -1,8 +1,6 @@
-import core.craftingAction;
 import core.craftingCrafter;
 import core.craftingProcess;
 import core.craftingRecipe;
-import craftingActions.actionBasicTouch;
 import org.junit.Test;
 
 public class craftingProcessTest {
@@ -46,10 +44,9 @@ public class craftingProcessTest {
         craftingCrafter crafter = new craftingCrafter(2142, 2029, 600, 80, "Carpenter");
         craftingRecipe recipe = new craftingRecipe(27150);
         craftingProcess process = new craftingProcess(crafter, recipe);
-        actionBasicTouch touch1 = new actionBasicTouch(process);
-        actionBasicTouch touch2 = new actionBasicTouch(process);
-        actionBasicTouch touch3 = new actionBasicTouch(process);
-
+        process.doAction("Inner Quiet");
+        process.doAction("Preparatory Touch");
+        process.doAction("Preparatory Touch");
 
     }
 
